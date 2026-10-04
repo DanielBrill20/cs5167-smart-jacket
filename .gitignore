@@ -1,1 +1,24 @@
 .vscode
+
+# Logs
+smart-jacket/logs
+smart-jacket/*.log
+smart-jacket/npm-debug.log*
+smart-jacket/yarn-debug.log*
+smart-jacket/yarn-error.log*
+smart-jacket/pnpm-debug.log*
+smart-jacket/lerna-debug.log*
+
+smart-jacket/node_modules
+smart-jacket/dist
+smart-jacket/dist-ssr
+smart-jacket/*.local
+
+# Editor directories and files
+smart-jacket/.idea
+smart-jacket/.DS_Store
+smart-jacket/*.suo
+smart-jacket/*.ntvs*
+smart-jacket/*.njsproj
+smart-jacket/*.sln
+smart-jacket/*.sw?
