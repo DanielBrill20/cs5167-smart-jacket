@@ -1,0 +1,14 @@
+.interface {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    min-height: 100vh;
+}
+
+@media (max-width: 720px) {
+    .interface {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}

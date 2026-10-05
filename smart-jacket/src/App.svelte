@@ -1,5 +1,14 @@
 <script>
-  import BackDesignSelector from './BackDesignSelector.svelte'
+    import Dial from './Dial.svelte';
+    import Screen from './Screen.svelte';
+
+    let selectedMode = $state(0);
 </script>
 
-<BackDesignSelector></BackDesignSelector>
+<main class="interface">
+    <Dial
+        {selectedMode}
+        onModeChange={(mode) => selectedMode = mode}
+    />
+    <Screen {selectedMode} />
+</main>
