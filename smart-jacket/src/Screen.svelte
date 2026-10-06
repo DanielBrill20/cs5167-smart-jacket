@@ -1,23 +1,13 @@
 <script>
     import { onMount } from 'svelte';
-    import adidasImage from './assets/Adidas.jpg';
-    import eternalAtakeImage from './assets/EternalAtake.jpg';
-    import luvIsRageImage from './assets/LuvisRage.jpg';
-    import luvVsTheWorld2Image from './assets/LUVvsTheWorld2.jpeg';
-
-    let { selectedMode = 0, movement = { x: 50, y: 50, speed: 0, angle: 0, id: 0 } } = $props();
+    let {
+        selectedMode = 0,
+        movement = { x: 50, y: 50, speed: 0, angle: 0, id: 0 },
+        presets = {}
+    } = $props();
     let canvasElement = $state();
 
-    const visualizerMode = 6;
-    const images = [
-        null,
-        adidasImage,
-        eternalAtakeImage,
-        luvIsRageImage,
-        luvVsTheWorld2Image,
-        adidasImage,
-        null
-    ];
+    let isVisualizer = $derived(presets[selectedMode]?.type === 'visualizer');
 
     const visualizerConfig = {
         contourDensity: 22,
@@ -164,7 +154,7 @@
             previousTime = time;
             elapsed += delta;
 
-            if (selectedMode === visualizerMode) {
+            if (isVisualizer) {
                 const movementDelta = Math.hypot(
                     latestMovement.x - previousMovement.x,
                     latestMovement.y - previousMovement.y
@@ -210,10 +200,10 @@
     });
 </script>
 
-<div class:visualizer={selectedMode === visualizerMode} class="screen">
+<div class:visualizer={isVisualizer} class="screen">
     <canvas bind:this={canvasElement} aria-label="Movement visualizer"></canvas>
-    {#if selectedMode !== visualizerMode && images[selectedMode]}
-        <img src={images[selectedMode]} alt="" />
+    {#if !isVisualizer && presets[selectedMode]?.type === 'image'}
+        <img src={presets[selectedMode].value} alt="" />
     {/if}
 </div>
 
