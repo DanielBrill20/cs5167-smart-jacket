@@ -47,7 +47,7 @@
         <aside class="info-panel">
             <h2>How to use</h2>
             <p>Rotate the wrist dial to change the jacket's display mode.</p>
-            <p>Use the phone app to select a mode, assign an image or movement visualizer, and clear a mode.</p>
+            <p>Use the phone app to program the dial by selecting modes, assigning them images or a movement visualizer, and clearing them.</p>
             <p>Drag the hand to simulate movement. The movement visualizer responds on the jacket screen.</p>
         </aside>
     {/if}
