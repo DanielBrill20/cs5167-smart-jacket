@@ -1,14 +1,34 @@
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    background: #e8e3dc;
+}
+
 .interface {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 4rem;
-    min-height: 100vh;
+    justify-content: space-between;
+    box-sizing: border-box;
+    gap: clamp(3rem, 8vw, 8rem);
+    height: 100vh;
+    min-height: 0;
+    padding: 4rem clamp(3rem, 6vw, 8rem) 1rem;
+    overflow: hidden;
 }
 
 @media (max-width: 720px) {
     .interface {
         flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
         gap: 2rem;
     }
 }

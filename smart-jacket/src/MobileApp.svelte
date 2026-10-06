@@ -199,7 +199,7 @@
 
 <style>
     .phone {
-        width: min(19rem, 25vw);
+        width: min(17rem, 22vw);
         min-width: 16rem;
         aspect-ratio: 9 / 18;
         overflow: hidden;

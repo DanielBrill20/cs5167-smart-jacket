@@ -6,7 +6,7 @@
     let movementArea;
     let wristElement = $state();
     let isDragging = $state(false);
-    let position = $state({ x: 50, y: 50 });
+    let position = $state({ x: 57, y: 50 });
     let previousPosition = { x: 50, y: 50, time: 0 };
 
     function moveWrist(event) {
