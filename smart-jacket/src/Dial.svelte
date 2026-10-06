@@ -94,9 +94,9 @@
     .puck {
         position: absolute;
         inset: 0;
-        border: 0.25rem solid #4a4a4a;
+        border: 0.25rem solid #c8c0b2;
         border-radius: 50%;
-        background: #c8c8c8;
+        background: #6f7b73;
         transform: rotateX(14deg) rotateY(-12deg);
         transform-style: preserve-3d;
     }
@@ -105,9 +105,9 @@
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        background: #777;
+        background: #3f4944;
         content: '';
-        transform: translateX(-1.5rem) translateY(-1.5rem) translateZ(-0.1rem);
+        transform: translateX(-.75rem) translateY(-.75rem) translateZ(-0.1rem);
     }
 
     .indicator {
@@ -117,7 +117,7 @@
         width: 0.9rem;
         height: 43%;
         border-radius: 50%;
-        color: #222;
+        color: #c8a96b;
         transform: rotate(var(--dial-angle));
         transform-origin: 50% 100%;
         transition: transform 180ms ease;

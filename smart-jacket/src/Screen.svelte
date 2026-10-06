@@ -213,7 +213,7 @@
         overflow: hidden;
         width: min(24rem, 45vw);
         aspect-ratio: 3 / 5;
-        background: #000;
+        background: #262123;
     }
 
     img,
@@ -234,7 +234,7 @@
     }
 
     img {
-        object-fit: contain;
+        object-fit: cover;
         object-position: center;
     }
 

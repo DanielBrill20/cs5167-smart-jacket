@@ -1,17 +1,25 @@
 <script>
-    import adidasImage from './assets/Adidas.jpg';
-    import eternalAtakeImage from './assets/EternalAtake.jpg';
-    import luvIsRageImage from './assets/LuvisRage.jpg';
+    import heartbreakImage from './assets/808s_heartbreak.webp';
+    import cubeDesignImage from './assets/cube_design.jpg';
+    import floralDesignImage from './assets/floral_design.jpg';
     import luvVsTheWorld2Image from './assets/LUVvsTheWorld2.jpeg';
+    import monaLisaImage from './assets/mona_lisa.webp';
+    import randomDogImage from './assets/random_dog.jpg';
+    import murakamiOneImage from './assets/takashi_murakami1.jpg';
+    import murakamiTwoImage from './assets/takashi_murakami2.avif';
+    import waveDesignImage from './assets/wave_design.png';
     import dialSegments from './assets/dial-segments.svg';
 
     const galleryImages = [
-        adidasImage,
-        eternalAtakeImage,
-        luvIsRageImage,
+        cubeDesignImage,
+        floralDesignImage,
+        waveDesignImage,
+        monaLisaImage,
+        murakamiOneImage,
+        murakamiTwoImage,
         luvVsTheWorld2Image,
-        adidasImage,
-        eternalAtakeImage
+        heartbreakImage,
+        randomDogImage,
     ];
 
     const segmentPaths = [
@@ -24,6 +32,14 @@
         'M146.918 27.8018L191.776 121.084C150.686 142.057 119.757 180.088 108.32 225.843L7.43066 202.761C7.41746 202.758 7.40383 202.755 7.39062 202.752C25.9124 125.99 77.8288 62.2506 146.904 27.7715C146.909 27.7814 146.913 27.7918 146.918 27.8018Z'
     ];
     const segmentLabels = ['Off', '1', '2', '3', '4', '5', '6'];
+    const labelPositions = segmentLabels.map((_, index) => {
+        const angle = (index * 360 / segmentLabels.length - 90) * Math.PI / 180;
+        const radius = 44;
+        return {
+            left: 50 + Math.cos(angle) * radius,
+            top: 50 + Math.sin(angle) * radius
+        };
+    });
     let { presets, onPresetChange = () => {} } = $props();
     let selectedMode = $state(null);
     let drawer = $state('closed');
@@ -82,7 +98,7 @@
         if (index === 0) return '#46505f';
         const preset = presets[index];
         if (preset?.type === 'image') return `url(#preset-image-${index})`;
-        if (preset?.type === 'visualizer') return '#62d9e8';
+        if (preset?.type === 'visualizer') return '#ffbf5c';
         return 'transparent';
     }
 </script>
@@ -132,7 +148,11 @@
             </svg>
             <div class="segment-labels" aria-hidden="true">
                 {#each segmentLabels as label, index}
-                    <span class={`label label-${index}`}>{label}</span>
+                    <span
+                        class:selected={selectedMode === index}
+                        class={`label label-${index}`}
+                        style={`left: ${labelPositions[index].left}%; top: ${labelPositions[index].top}%`}
+                    >{label}</span>
                 {/each}
             </div>
         </div>
@@ -162,6 +182,7 @@
                 <div class="drawer-options">
                     <button type="button" onclick={() => drawer = 'gallery'}>Gallery</button>
                     <button type="button" onclick={() => setPreset({ type: 'visualizer' })}>Movement Visualizer</button>
+                    <button class="clear-mode" type="button" onclick={() => setPreset(null)}>Clear Mode</button>
                 </div>
             {:else}
                 <div class="gallery">
@@ -199,22 +220,24 @@
 
     .donut {
         position: relative;
-        width: 92%;
+        width: 100%;
         aspect-ratio: 1;
     }
 
     .donut-center {
         position: absolute;
         z-index: 2;
-        inset: 26%;
+        inset: 31.8%;
         display: grid;
         place-items: center;
         overflow: hidden;
         border-radius: 50%;
         background: #182131;
         color: #e5edf6;
-        font-size: clamp(1rem, 2vw, 1.5rem);
+        font-size: clamp(0.55rem, 1.1vw, 0.85rem);
+        line-height: 1.1;
         text-align: center;
+        text-wrap: balance;
     }
 
     .donut-center img {
@@ -224,12 +247,19 @@
     }
 
     .donut-image,
-    .segment-controls,
     .segment-labels {
         position: absolute;
         inset: 0;
         width: 100%;
         height: 100%;
+    }
+
+    .donut-image,
+    .segment-controls {
+        position: absolute;
+        inset: 12%;
+        width: 76%;
+        height: 76%;
     }
 
     .donut-image {
@@ -262,8 +292,8 @@
 
     .segment-labels {
         z-index: 3;
-        color: #3f3939;
-        font-size: 1.35rem;
+        color: #e5edf6;
+        font-size: 1.1rem;
         pointer-events: none;
     }
 
@@ -272,13 +302,9 @@
         transform: translate(-50%, -50%);
     }
 
-    .label-0 { top: 12%; left: 50%; }
-    .label-1 { top: 25%; left: 81%; }
-    .label-2 { top: 60%; left: 88%; }
-    .label-3 { top: 85%; left: 70%; }
-    .label-4 { top: 85%; left: 30%; }
-    .label-5 { top: 60%; left: 12%; }
-    .label-6 { top: 25%; left: 19%; }
+    .segment-labels .label.selected {
+        color: #62d9e8;
+    }
 
     .prompt {
         margin: 0;
@@ -328,6 +354,11 @@
         gap: 1rem;
     }
 
+    .drawer-options .clear-mode {
+        grid-column: 1 / -1;
+        min-height: 3rem;
+    }
+
     .drawer button {
         min-height: 6rem;
         border: 0;
@@ -344,11 +375,21 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 0.7rem;
         height: 100%;
-        grid-template-rows: repeat(2, auto);
-        align-content: center;
+        grid-auto-rows: min-content;
+        align-content: start;
+        overflow-y: auto;
+        padding-bottom: 0.5rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        touch-action: pan-y;
+    }
+
+    .gallery::-webkit-scrollbar {
+        display: none;
     }
 
     .gallery button {
+        width: 100%;
         min-height: 0;
         aspect-ratio: 1;
         padding: 0;

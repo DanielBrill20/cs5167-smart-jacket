@@ -1,7 +1,9 @@
 <script>
-    import adidasImage from './assets/Adidas.jpg';
+    import wristImage from './assets/hand.png';
+    import Dial from './Dial.svelte';
 
-    let { onMove = () => {} } = $props();
+    let { selectedMode = 0, onModeChange = () => {}, onMove = () => {} } = $props();
+    let movementArea;
     let wristElement = $state();
     let isDragging = $state(false);
     let position = $state({ x: 50, y: 50 });
@@ -10,7 +12,7 @@
     function moveWrist(event) {
         if (!wristElement) return;
 
-        const bounds = wristElement.parentElement.getBoundingClientRect();
+        const bounds = movementArea.getBoundingClientRect();
         const nextPosition = {
             x: Math.max(12, Math.min(88, ((event.clientX - bounds.left) / bounds.width) * 100)),
             y: Math.max(12, Math.min(88, ((event.clientY - bounds.top) / bounds.height) * 100))
@@ -50,39 +52,52 @@
     }
 </script>
 
-<div class="movement-area">
-    <img
+<div class="movement-area" bind:this={movementArea}>
+    <div
         class:dragging={isDragging}
         class="wrist"
-        bind:this={wristElement}
-        src={adidasImage}
-        alt="Draggable wrist movement control"
-        draggable="false"
         style={`left: ${position.x}%; top: ${position.y}%`}
-        onpointerdown={startDragging}
-        onpointermove={(event) => isDragging && moveWrist(event)}
-        onpointerup={stopDragging}
-        onpointercancel={stopDragging}
-        ondragstart={(event) => event.preventDefault()}
-    />
+    >
+        <img
+            bind:this={wristElement}
+            src={wristImage}
+            alt="Draggable wrist movement control"
+            draggable="false"
+            onpointerdown={startDragging}
+            onpointermove={(event) => isDragging && moveWrist(event)}
+            onpointerup={stopDragging}
+            onpointercancel={stopDragging}
+            ondragstart={(event) => event.preventDefault()}
+        />
+        <div class="wrist-dial">
+            <Dial {selectedMode} onModeChange={onModeChange} />
+        </div>
+    </div>
 </div>
 
 <style>
     .movement-area {
-        position: relative;
-        width: min(16rem, 25vw);
-        height: min(24rem, 60vh);
-        border: 1px solid currentColor;
-        overflow: hidden;
+        position: fixed;
+        z-index: 5;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
     }
 
     .wrist {
         position: absolute;
-        width: 7rem;
-        height: 7rem;
-        object-fit: cover;
+        width: var(--hand-size, 30rem);
         transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
+
+    .wrist img {
+        display: block;
+        width: 100%;
+        height: auto;
         cursor: grab;
+        pointer-events: auto;
         touch-action: none;
         user-select: none;
         -webkit-user-drag: none;
@@ -92,10 +107,16 @@
         cursor: grabbing;
     }
 
-    @media (max-width: 720px) {
-        .movement-area {
-            width: min(20rem, 80vw);
-            height: 10rem;
-        }
+    .wrist-dial {
+        position: absolute;
+        top: var(--dial-top, 34%);
+        left: var(--dial-left, 26%);
+        width: var(--dial-size, 7rem);
+        transform: translate(-50%, -50%);
+        pointer-events: auto;
+    }
+
+    .wrist-dial :global(.dial) {
+        width: 100%;
     }
 </style>
