@@ -29,3 +29,10 @@
 - A jacket that can act as a chameleon and match with anything could be of value.
 - Jackets need to "think of their surroundings." Designs should incorporate ways to ensure the jacket doesn't get caught on surrounding objects and pocketed goods are secured.
 - The jacket should be easy to charge. Either being incredibly low power, charge by solar, or have some natural charging mechanism. For example, I'm thinking of how wireless earbuds naturally charge in their case. What if a hook or something charged the jacket magnetically?
+
+## Vanilla Sketch Feedback
+
+- Dial placement on wrist is gold. It mirrors a watch and is natural.
+- Make sure the dial is easy to use with gloves. Preferable over a smartphone.
+- Ensure it's easy to tell which modes have images/modes assigned to them.
+- Most people haven't even considered the idea of fabric that can change and be dynamic!
